@@ -1,0 +1,18 @@
+@import "tailwindcss";
+.mainBackGround{
+  background: url('./assets/background.jpg') center/cover;
+}
+.veges::-webkit-scrollbar {
+  display: none;
+}
+.star{
+  animation: anime 3s linear infinite ;
+}
+@keyframes anime {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}

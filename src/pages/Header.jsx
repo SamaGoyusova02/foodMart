@@ -1,0 +1,110 @@
+import logo from '../assets/logo.png'
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaRegUser } from "react-icons/fa";
+import { CiHeart } from "react-icons/ci";
+import { FaShoppingBasket } from "react-icons/fa";
+import { HiBars3BottomLeft } from "react-icons/hi2";
+import { MdCancelPresentation } from "react-icons/md";
+function Header() {
+
+    function closeMenubar() {
+        let overlay = document.getElementById('overlay')
+        let menu = document.getElementById('menu')
+        menu.style.right = '-100%'
+        menu.style.transition = '.5s ease-in-out'
+        overlay.style.display = 'none'
+        overlay.style.transition = '.3s ease-in-out'
+    }
+    function openMneubar() {
+        let overlay = document.getElementById('overlay')
+        let menu = document.getElementById('menu')
+        menu.style.right = '0'
+        menu.style.transition = '.5s ease-in-out'
+        overlay.style.display = 'block'
+        overlay.style.transition = '.3s ease-in-out'
+    }
+    return (
+        <>
+            <header className='bg-white flex justify-between items-center h-[70px] lg:h-[90px] px-5 fixed w-full top-0 z-50 '>
+                <img className='w-[40%] lg:w-[15%]' src={logo} alt="" />
+                <div className=' flex items-center rounded-[16px] text-[#3b3c3d] bg-[#f8f8f8] justify-between px-5 w-[600px] h-[50px] hidden  lg:flex'>
+                    <select className='text-[#747474]'>
+                        <option className='font-[Open_Sans]'>All Categories</option>
+                        <option>Groceries</option>
+                        <option>Drinks</option>
+                        <option>Chocolates</option>
+                    </select>
+                    <input className='text-[1.2em] text-[#333333] w-full max-w-[340px] hover:border hover:border-[#89b0f5] hover:shadow-[0_0_6px_#89b0f5] rounded-[10px] duration-300 h-[40px] pl-2 ' type="text" placeholder='Search for more than 20,000 products' />
+                    <FaMagnifyingGlass className='text-[#747474] text-[1.2em]' />
+                </div>
+
+                <div className=' gap-12 items-center hidden lg:flex'>
+                    <div>
+                        <p className='text-[#595c5f] text-right text-[1.1em] font-[Open_Sans] '>For Support?</p>
+                        <p className=' text-[1.3em] font-[Nunito]  '>+980-34984089</p>
+                    </div>
+                    <div className='flex gap-3'>
+                        <p className='bg-[#f8f8f8] h-[40px] w-[40px] rounded-[50%] flex justify-center items-center text-[1.2em] '><FaRegUser /></p>
+                        <p className='bg-[#f8f8f8] h-[40px] w-[40px] rounded-[50%] flex justify-center items-center text-[1.5em] '><CiHeart /></p>
+                    </div>
+                    <div>
+                        <p className='text-[#595c5f] text-[1.1em]'>Your Card </p>
+                        <p className='font-[500] text-[1.3em]'>$1290.00</p>
+                    </div>
+                </div>
+                <div className='flex items-center gap-3 md:hidden lg:hidden'>
+                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaRegUser /></p>
+                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><CiHeart /></p>
+                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaShoppingBasket /></p>
+                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaMagnifyingGlass /></p>
+                </div>
+            </header>
+            <div className=' gap-8 items-center mt-6 pl-6 hidden lg:flex'>
+                <select className='text-[#333333]'>
+                    <option>All Categories</option>
+                    <option>Groceries</option>
+                    <option>Drinks</option>
+                    <option>Chocolates</option>
+                </select>
+                <ul className='flex gap-9 text-[#333333]'>
+                    <li>Women</li>
+                    <li>Men</li>
+                    <li>Kids</li>
+                    <li>Accessories</li>
+                    <li>Pages</li>
+                    <li>Brand</li>
+                    <li>Sale</li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+
+            <div><p className=' flex lg:hidden justify-center items-center text-[1.8em] text-[#595c5f] border-[#d9d9d9]  mt-[70px] ml-5 border w-[40px] h-[40px] rounded-[5px] '><HiBars3BottomLeft onClick={openMneubar} /></p></div>
+
+            <div id='overlay' className='bg-[#00000097] fixed top-0 hidden w-full h-full z-55 hidden'></div>
+            <div id='menu' className='bg-white w-full h-full fixed right-[-100%] z-65 top-0'>
+                <div><MdCancelPresentation onClick={closeMenubar} className='text-[1.8em] m-3' /></div>
+                <div className='flex justify-center'>
+                    <select className='w-full max-w-[340px] mt-3 outline-none border px-5 py-3 rounded-[10px]  border-[#9e9e9e]'>
+                        <option>Shop by Departments</option>
+                        <option>Groceries</option>
+                        <option>Drinks</option>
+                        <option>Chocalates</option>
+                    </select>
+                </div>
+                <ul className='flex flex-col gap-4 px-3 mt-8'>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Women</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Men</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Kids</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Accessories</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Pages</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Brand</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Sale</li>
+                    <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Blog</li>
+                </ul>
+            </div>
+
+        </>
+    )
+}
+
+export default Header

@@ -40,6 +40,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { FaLandmark } from "react-icons/fa6";
 import { BsChatHeartFill } from "react-icons/bs";
 import { FiGift } from "react-icons/fi";
+import { BASKET } from '../Context/BasketContext'
 function Main() {
     const containerRef = useRef()
 
@@ -75,7 +76,8 @@ function Main() {
     }
 
     const {products} = useContext(DATA)
-  
+    
+    const {AddBasket} = useContext(BASKET)
     
     return (
         <main className='pt-[20px] lg:pt-[50px]'>
@@ -280,7 +282,7 @@ function Main() {
                             <span>1</span>
                             <button className='border w-[25px] h-[25px] flex justify-center items-center text-[1.2em] rounded-[5px] pb-1 border-[#e2e2e2]'>+</button>
                         </div>
-                        <button className='text-[#747474] text-[1.1em]'>Add to Card</button>
+                        <button onClick={() => AddBasket(item.id , item.title , item.image , item.price)} className='text-[#fff] bg-blue-400 py-1 px-2 rounded-[10px] hover:bg-blue-950 duration-300 ease-in-out text-[1.1em]'>Add to Card</button>
                     </div>
                 </div>
             </div>
@@ -346,7 +348,7 @@ function Main() {
                             <span>1</span>
                             <button className='border w-[25px] h-[25px] flex justify-center items-center text-[1.2em] rounded-[5px] pb-1 border-[#e2e2e2]'>+</button>
                         </div>
-                        <button className='text-[#747474] text-[1.1em]'>Add to Card</button>
+                        <button className=' text-[1.1em] bg-blue-400 px-2 py-1 rounded-[10px] text-white'>Add to Card</button>
                     </div>
                 </div>
             </div>

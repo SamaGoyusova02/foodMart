@@ -5,8 +5,12 @@ import { CiHeart } from "react-icons/ci";
 import { FaShoppingBasket } from "react-icons/fa";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import { MdCancelPresentation } from "react-icons/md";
-function Header() {
+import { useContext, useState } from 'react';
+import { BASKET } from '../Context/BasketContext';
+import { ImCancelCircle } from "react-icons/im";
+import { IoMdTrash } from "react-icons/io";
 
+function Header({AddBasket}) {
     function closeMenubar() {
         let overlay = document.getElementById('overlay')
         let menu = document.getElementById('menu')
@@ -23,8 +27,15 @@ function Header() {
         overlay.style.display = 'block'
         overlay.style.transition = '.3s ease-in-out'
     }
+    const [openSebet , setOpenSebet] = useState(false)
+    const {sebet ,Increase , Decrease , removeItem } = useContext(BASKET)
+    const Total = sebet.reduce((total , item) => {
+        return total + (item.price * item.count)
+    } , 0)
+
     return (
         <>
+        
             <header className='bg-white flex justify-between items-center h-[70px] lg:h-[90px] px-5 fixed w-full top-0 z-50 '>
                 <img className='w-[40%] lg:w-[15%]' src={logo} alt="" />
                 <div className=' flex items-center rounded-[16px] text-[#3b3c3d] bg-[#f8f8f8] justify-between px-5 w-[600px] h-[50px] hidden  lg:flex'>
@@ -44,7 +55,10 @@ function Header() {
                         <p className=' text-[1.3em] font-[Nunito]  '>+980-34984089</p>
                     </div>
                     <div className='flex gap-3'>
-                        <p className='bg-[#f8f8f8] h-[40px] w-[40px] rounded-[50%] flex justify-center items-center text-[1.2em] '><FaRegUser /></p>
+                   <div className='flex relative'>
+                         <p className='bg-[#f8f8f8] h-[40px] w-[40px] rounded-[50%] flex justify-center items-center text-[1.2em] '><FaShoppingBasket onClick={() => setOpenSebet(true)} /></p>
+                          <span className='absolute -right-[5px] -top-[5px] bg-[#50a2ff] text-white w-[18px] h-[18px] rounded-[50%] text-[.8em] flex justify-center items-center '>{sebet.length}</span>
+                   </div>
                         <p className='bg-[#f8f8f8] h-[40px] w-[40px] rounded-[50%] flex justify-center items-center text-[1.5em] '><CiHeart /></p>
                     </div>
                     <div>
@@ -53,9 +67,11 @@ function Header() {
                     </div>
                 </div>
                 <div className='flex items-center gap-3 md:hidden lg:hidden'>
-                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaRegUser /></p>
+                <div className='flex relative'>
+                         <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center '><FaShoppingBasket onClick={() => setOpenSebet(true)} /></p>
+                          <span className='absolute -right-[5px] -top-[5px] bg-[#50a2ff] text-white w-[13px] h-[13px] rounded-[50%] text-[.7em] flex justify-center items-center '>{sebet.length}</span>
+                   </div>
                     <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><CiHeart /></p>
-                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaShoppingBasket /></p>
                     <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaMagnifyingGlass /></p>
                 </div>
             </header>
@@ -102,7 +118,38 @@ function Header() {
                     <li className='border-b border-b-[#9e9e9e] font-[500] text-[#333333]'>Blog</li>
                 </ul>
             </div>
+                {/* sebet modal */}
+             {
+                openSebet && (
+                <section className='flex justify-center items-center fixed inset-0 w-full h-[100vh] z-[100]'>
+                <div id='lay' onClick={() => setOpenSebet(false)} className='bg-[#000000ae] absolute inset-0 w-full h-full z-99 '></div>
+                 <div className='bg-white fixed w-full max-w-[500px] mx-3 py-3 overflow-hidden max-h-[460px] rounded-[20px] z-100'>
+                    <div className='flex justify-end p-3'><p onClick={() => setOpenSebet(false)} ><ImCancelCircle  className='text-[1.3em] text-amber-600'/></p></div>
 
+                    <ul className='overflow-y-auto max-h-[400px]'>
+                        {sebet?.map((item , i) => {
+                            return <li key={i}>
+
+                                <div className='flex justify-between items-center px-3 '> 
+                                    <img className='w-[80px]' src={item.image} alt="" />
+                                    <h3 className='font-[500] text-[1.2em] '>{item.title}</h3>
+                                    <p> $ {item.price * item.count}</p>
+                                   <div className='flex items-center gap-2'>
+                                    <button onClick={() => Decrease (item.id)} className='w-[18px] h-[18px] border flex justify-center items-center p-2  rounded-[5px] font-[700] '>-</button>
+                                    <span>{item.count}</span>
+                                    <button onClick={() =>  Increase(item.id)}  className='w-[18px] h-[18px] border flex justify-center items-center p-2  rounded-[5px] font-[700] '>+</button>
+                                   </div>
+                                   <IoMdTrash onClick={() => removeItem(item.id)} className='text-red-700 text-[1.1em]' />
+                                </div>
+                              
+                            </li>
+                        })}
+                         <div className='flex justify-end p-3'> <p className='font-[500]'>Cəm  $ {Total}</p></div>
+                    </ul>
+                </div>
+               </section>
+                )
+             }
         </>
     )
 }

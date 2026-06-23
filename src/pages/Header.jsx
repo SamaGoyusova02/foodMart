@@ -85,7 +85,7 @@ function Header({AddBasket}) {
                 </div>
                </div>
               
-                  <div className=' absolute bg-white  w-full max-w-[380px] max-h-[500px]  overflow-y-scroll  top-[40px] lg:top-[70px] left-[4%] lg:left-[35%] z-49 border border-white rounded-[20px]'>
+                  <div className=' absolute bg-white  w-full max-w-[380px] max-h-[500px]  overflow-y-scroll  top-[40px] lg:top-[70px]  lg:left-[35%] z-49 border border-white rounded-[20px]'>
                         {search && (
                             filterProducts.length === 0 ? (
                                 <p className='font-[700]'>Məhsul yoxdur</p>

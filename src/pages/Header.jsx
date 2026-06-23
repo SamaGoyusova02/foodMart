@@ -9,6 +9,7 @@ import { useContext, useState } from 'react';
 import { BASKET } from '../Context/BasketContext';
 import { ImCancelCircle } from "react-icons/im";
 import { IoMdTrash } from "react-icons/io";
+import { DATA } from '../Context/DataContext';
 
 function Header({AddBasket}) {
     function closeMenubar() {
@@ -33,11 +34,19 @@ function Header({AddBasket}) {
         return total + (item.price * item.count)
     } , 0)
 
+    const [search , setSearch] = useState('')
+    const {products} = useContext(DATA)
+    const filterProducts = search && search && products !== 0 ?
+        products.filter(item => 
+            item.title.toLowerCase().includes(search.toLowerCase())
+        ) : []
+       
     return (
         <>
         
-            <header className='bg-white flex justify-between items-center h-[70px] lg:h-[90px] px-5 fixed w-full top-0 z-50 '>
-                <img className='w-[40%] lg:w-[15%]' src={logo} alt="" />
+            <header className='relative  ' >
+               <div className='bg-white flex justify-between items-center h-[70px] lg:h-[90px] px-5 fixed w-full top-0 z-50 '>
+                 <img className='w-[40%] lg:w-[15%]' src={logo} alt="" />
                 <div className=' flex items-center rounded-[16px] text-[#3b3c3d] bg-[#f8f8f8] justify-between px-5 w-[600px] h-[50px] hidden  lg:flex'>
                     <select className='text-[#747474]'>
                         <option className='font-[Open_Sans]'>All Categories</option>
@@ -45,7 +54,7 @@ function Header({AddBasket}) {
                         <option>Drinks</option>
                         <option>Chocolates</option>
                     </select>
-                    <input className='text-[1.2em] text-[#333333] w-full max-w-[340px] hover:border hover:border-[#89b0f5] hover:shadow-[0_0_6px_#89b0f5] rounded-[10px] duration-300 h-[40px] pl-2 ' type="text" placeholder='Search for more than 20,000 products' />
+                    <input value={search} onChange={(e) => setSearch(e.target.value)} className='text-[1.2em] text-[#333333] w-full max-w-[340px] hover:border hover:border-[#89b0f5] hover:shadow-[0_0_6px_#89b0f5] rounded-[10px] duration-300 h-[40px] pl-2 outline-none ' type="text" placeholder='Search for more than 20,000 products' />
                     <FaMagnifyingGlass className='text-[#747474] text-[1.2em]' />
                 </div>
 
@@ -71,10 +80,30 @@ function Header({AddBasket}) {
                          <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center '><FaShoppingBasket onClick={() => setOpenSebet(true)} /></p>
                           <span className='absolute -right-[5px] -top-[5px] bg-[#50a2ff] text-white w-[13px] h-[13px] rounded-[50%] text-[.7em] flex justify-center items-center '>{sebet.length}</span>
                    </div>
-                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><CiHeart /></p>
-                    <p className='bg-[#f8f8f8] h-[23px] w-[23px] rounded-[50%] flex justify-center items-center text-[.8em] '><FaMagnifyingGlass /></p>
+                    <input value={search} onChange={(e) => setSearch(e.target.value)} className='text-[1.2em] text-[#333333] w-full max-w-[120px] hover:border hover:border-[#89b0f5] hover:shadow-[0_0_6px_#89b0f5] rounded-[10px] duration-300 h-[40px] pl-2 outline-none ' type="text" placeholder='Search...' />
+                   
                 </div>
+               </div>
+              
+                  <div className=' absolute bg-white  w-full max-w-[380px] max-h-[500px]  overflow-y-scroll  top-[40px] lg:top-[70px] left-[4%] lg:left-[35%] z-49 border border-white rounded-[20px]'>
+                        {search && (
+                            filterProducts.length === 0 ? (
+                                <p className='font-[700]'>Məhsul yoxdur</p>
+                            ) :
+                            (
+                                filterProducts.map((item , i) => (
+                                    <div key={i} className='flex justify-between px-3 items-center py-2'>
+                                        <img className='w-[70px]' src={item.image} alt="" />
+                                        <p>{item.title}</p>
+                                        <p className='font-[700]'><span className='text-orange-400 text-[1.2em]'>$</span> {item.price}</p>
+                                    </div>
+                                ))
+                            )
+                        )}
+                 </div>
+              
             </header>
+           
             <div className=' gap-8 items-center mt-6 pl-6 hidden lg:flex'>
                 <select className='text-[#333333]'>
                     <option>All Categories</option>

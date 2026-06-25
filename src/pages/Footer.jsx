@@ -52,7 +52,7 @@ function Footer() {
             <li className='text-[#747474] text-[1.1em] hover:text-black duration-300 ease-in-out '>Subscribe to our newsletter to get <br/> updates about our grand offers.</li>
             <li className='flex items-center relative mt-4'>
                 <input type="email" placeholder='Email Adress' className='border rounded-[10px] z-10 bg-[#f8f8f8] w-full max-w-[240px] h-[40px] outline-none text-[#575a5d] pl-3 ' />
-                <button className='text-white bg-black hidden lg:block absolute -right-[30px] z-20 w-[110px] h-[40px] flex justify-center items-center rounded-tr-[10px] rounded-br-[10px]' type='submit'>Subscribe</button>
+                <button className='text-white bg-black hidden lg:flex absolute -right-[30px] z-20 w-[110px] h-[40px]  justify-center items-center rounded-tr-[10px] rounded-br-[10px]' type='submit'>Subscribe</button>
             </li>
         </ul>
        </section>

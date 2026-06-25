@@ -5,7 +5,7 @@ async function getData() {
 }
 
 async function getCategory() {
-    const res = await axios.get('http://localhost:3000/CategoryProducts')
+    const res = await axios.get('https://69bfc34f72ca04f3bcb92a0d.mockapi.io/proDuct')
     return res.data
 }
 export {getData , getCategory}

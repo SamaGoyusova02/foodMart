@@ -75,7 +75,10 @@ function Main() {
         AllProducts.current.scrollLeft -= 220
     }
 
-    const {products} = useContext(DATA)
+    const {products,  category} = useContext(DATA)
+    const [cat , setCat] = useState('')
+    const CatPro = cat ? products.filter(item => item.category == cat) : products
+    
     
     const {AddBasket} = useContext(BASKET)
     
@@ -249,18 +252,25 @@ function Main() {
                 </div>
             </section>
 
+        {/* category map  */}
+        <div className='text-center mt-10 flex gap-3 mx-2 lg:gap-6 justify-center flex-wrap'>
+            <button onClick={() => setCat('')} className='px-4 bg-[#ffc43f] text-white py-1  rounded-[10px] hover:-translate-y-1.5 duration-500 ' >All</button>
+            {
+                category?.map((item , i) => (
+                <button key={i} onClick={() => setCat(item.categoryName)} className='px-4  bg-[#50a2ff] text-white py-1  rounded-[10px] hover:-translate-y-1.5 duration-500 ' >{item.categoryName}</button>
+
+                ))
+            }
+        </div>
+
            {/* Data olan hisse */}
-           <div className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-0 justify-center overflow-hidden lg:justify-between items-center px-5 mt-10'>
+           <div className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-0 justify-center overflow-hidden lg:justify-between items-center px-5 mt-8 lg:mt-5'>
             <h2 className='lg:text-[2em] text-[1.5em] font-[500]'>Trending Products</h2>
-            <ul className='flex justify-center items-center gap-5'>
-                <li className='text-[1.2em] text-[#2d2d2d] hover:text-black duration-300 ease-in-out hover:border-b-[#ffc43f] hover:border-b hover:border-b-3 '>ALL</li>
-                <li className='text-[1.2em] text-[#2d2d2d] hover:text-black duration-300 ease-in-out hover:border-b-[#ffc43f] hover:border-b hover:border-b-3  '>FRUITS & VEGES</li>
-                <li className='text-[1.2em] text-[#2d2d2d] hover:text-black duration-300 ease-in-out hover:border-b-[#ffc43f] hover:border-b hover:border-b-3 '>JUICES</li>
-            </ul>
+           
            </div>
            <section className='flex flex-col lg:flex-row flex-wrap justify-center items-center gap-6 mt-10'>
                 {
-                  products &&  products.slice(0,10).map(( item ,i) =>  (
+                  CatPro &&  CatPro.slice(0,10).map(( item ,i) =>  (
                <div key={i} className='w-full max-w-[270px] rounded-[20px]  overflow-hidden  hover:shadow-[0_0_35px_#ececec] hover:-translate-y-2.5  transition-transform  duration-300 shadow-[0_0_20px_#ececec]'>
                <div className='bg-[#f8f8f8] m-4 rounded-[20px] relative flex flex-col justify-center items-center'>
                  <img className='max-w-[200px] w-full h-[200px] object-contain' src={item.image} alt={item.id} />

@@ -1,0 +1,24 @@
+{
+    "CategoryProducts" :[
+  {
+    "id": 1,
+    "categoryName": "fruit"
+  },
+  {
+    "id": 2,
+    "categoryName": "vegetable"
+  },
+  {
+    "id": 3,
+    "categoryName": "bakery"
+  },
+  {
+    "id": 4,
+    "categoryName": "dairy"
+  },
+  {
+    "id": 5,
+    "categoryName": "sauce"
+  }
+]
+}

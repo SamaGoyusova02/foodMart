@@ -4,4 +4,8 @@ async function getData() {
     return response.data
 }
 
-export {getData}
+async function getCategory() {
+    const res = await axios.get('http://localhost:3000/CategoryProducts')
+    return res.data
+}
+export {getData , getCategory}

@@ -41,6 +41,9 @@ import { FaLandmark } from "react-icons/fa6";
 import { BsChatHeartFill } from "react-icons/bs";
 import { FiGift } from "react-icons/fi";
 import { BASKET } from '../Context/BasketContext'
+import { Link } from 'react-router'
+
+
 function Main() {
     const containerRef = useRef()
 
@@ -81,9 +84,13 @@ function Main() {
     
     
     const {AddBasket} = useContext(BASKET)
+
+    function SlugIfy(text){
+        return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+    }
     
     return (
-        <main className='pt-[20px] lg:pt-[50px]'>
+        <main className='pt-[20px] lg:pt-[50px] pb-[60px]'>
             <section className='mainBackGround mx-3 lg:mx-0 flex flex-col lg:flex-row justify-center lg:justify-evenly py-5'>
                   <Swiper  pagination={true} modules={[Pagination , Autoplay ]} autoplay={{ delay: 2500, disableOnInteraction: false, }} className="mySwiper px-3 lg:px-0 w-full max-w-[910px] ">
                         <SwiperSlide>
@@ -272,13 +279,13 @@ function Main() {
                 {
                   CatPro &&  CatPro.slice(0,10).map(( item ,i) =>  (
                <div key={i} className='w-full max-w-[270px] rounded-[20px]  overflow-hidden  hover:shadow-[0_0_35px_#ececec] hover:-translate-y-2.5  transition-transform  duration-300 shadow-[0_0_20px_#ececec]'>
-               <div className='bg-[#f8f8f8] m-4 rounded-[20px] relative flex flex-col justify-center items-center'>
+               <Link to={`/products/${SlugIfy(item.title)}`} className='bg-[#f8f8f8] m-4 rounded-[20px] relative flex flex-col justify-center items-center'>
                  <img className='max-w-[200px] w-full h-[200px] object-contain' src={item.image} alt={item.id} />
                     <div className='flex justify-between px-2 items-center absolute top-[10px]  left-0 right-0'>
                         {item.discount ? <p className='bg-[#a3be4c] w-[40px] text-[.8em] rounded-[5px] h-[20px] flex justify-center items-center text-white'>{item.discount}</p> : <div></div>}
                         <p className='w-[45px] h-[45px] bg-white rounded-[50%] flex justify-center items-center hover:bg-[#f03838] hover:text-white duration-300 ease-in-out text-[1.3em] border border-[#c3c3c3] '><FaRegHeart /></p>
                     </div>
-               </div>
+               </Link>
                 <div className='px-3 pb-5'>
                     <h2 className='font-[500] text-[1.2em]'>{item.title}</h2>
                     <p className='flex items-center gap-3'>

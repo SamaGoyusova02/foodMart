@@ -8,7 +8,7 @@ import { GiBarbedStar } from "react-icons/gi";
 function Footer() {
   return (
    <footer>
-       <section className='mt-14 flex rounded-[20px] flex-col lg:flex-row justify-evenly px-3 pt-10 gap-4 shadow-[-6px_-6px_10px_#efefef]'>
+       <section className=' flex rounded-[20px] flex-col lg:flex-row justify-evenly px-3 pt-10 gap-4 shadow-[-6px_-6px_10px_#efefef]'>
          <div>
             <img src={logo} alt="logo" />
             <ul className='flex items-center gap-2 mt-6'>
